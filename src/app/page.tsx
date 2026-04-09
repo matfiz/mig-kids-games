@@ -10,6 +10,14 @@ const games = [
     status: "playable" as const,
   },
   {
+    id: "easter-bunny-heist",
+    title: "Wielkanocny Skok Zajączka",
+    description: "Skradankowa gra 3D — dostarczaj prezenty jako zajączek wielkanocny, unikając domowników!",
+    emoji: "🐰",
+    color: "from-pink-400 to-purple-500",
+    status: "playable" as const,
+  },
+  {
     id: null,
     title: "Wkrótce...",
     description: "Następna gra już w drodze!",
