@@ -12,6 +12,7 @@ import { Toasts } from '@/games/karols-farm/ui/Toasts';
 import { SleepOverlay } from '@/games/karols-farm/ui/SleepOverlay';
 import { MobileControls } from '@/games/karols-farm/ui/MobileControls';
 import { GameLoop } from '@/games/karols-farm/input/GameLoop';
+import { GameErrorBoundary } from '@/games/karols-farm/ui/ErrorBoundary';
 
 // Dynamic import for Three.js scene to avoid SSR issues
 const Scene = dynamic(
@@ -56,6 +57,7 @@ export default function KarolsFarmPage() {
   }
 
   return (
+    <GameErrorBoundary>
     <div className="w-screen h-screen overflow-hidden relative bg-black select-none">
       {/* 3D Scene */}
       <Scene />
@@ -79,5 +81,6 @@ export default function KarolsFarmPage() {
         WASD: ruch | E: akcja | Q: sklep | R: masowy zbiór | P: pomoc | B: sen
       </div>
     </div>
+    </GameErrorBoundary>
   );
 }
