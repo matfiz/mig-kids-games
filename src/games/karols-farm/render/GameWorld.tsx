@@ -1,12 +1,11 @@
 'use client';
 
-import { useRef, useMemo } from 'react';
+import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { useGameStore } from '@/games/karols-farm/store/gameStore';
 import { SEEDS } from '@/games/karols-farm/core/data/seeds';
-import { TREES } from '@/games/karols-farm/core/data/trees';
 import { BUILDINGS } from '@/games/karols-farm/core/data/world';
-import { Text } from '@react-three/drei';
+import { Html } from '@react-three/drei';
 import * as THREE from 'three';
 
 // Color mappings
@@ -214,28 +213,14 @@ function BuildingMesh({ building }: { building: typeof BUILDINGS[number] }) {
         <meshStandardMaterial color={roofColors[building.id] || '#666666'} />
       </mesh>
       {/* Label */}
-      <Text
-        position={[0, 2.2, 0]}
-        fontSize={0.5}
-        color="white"
-        anchorX="center"
-        anchorY="middle"
-        outlineWidth={0.05}
-        outlineColor="#000000"
-      >
-        {building.emoji}
-      </Text>
-      <Text
-        position={[0, 1.8, 0]}
-        fontSize={0.2}
-        color="white"
-        anchorX="center"
-        anchorY="middle"
-        outlineWidth={0.03}
-        outlineColor="#000000"
-      >
-        {building.name}
-      </Text>
+      <Html position={[0, 2.2, 0]} center distanceFactor={10} sprite>
+        <div className="text-center pointer-events-none select-none">
+          <div className="text-2xl">{building.emoji}</div>
+          <div className="text-xs text-white font-bold" style={{ textShadow: '0 0 4px black' }}>
+            {building.name}
+          </div>
+        </div>
+      </Html>
     </group>
   );
 }
@@ -301,16 +286,11 @@ export function GameWorld() {
             <planeGeometry args={[f.width, f.height]} />
             <meshStandardMaterial color="#997755" transparent opacity={0.3} />
           </mesh>
-          <Text
-            position={[0, 0.5, 0]}
-            fontSize={0.3}
-            color="#ffffff"
-            anchorX="center"
-            outlineWidth={0.03}
-            outlineColor="#000000"
-          >
-            {`🔒 Pole #${f.id}`}
-          </Text>
+          <Html position={[0, 0.5, 0]} center distanceFactor={10} sprite>
+            <div className="text-white text-xs font-bold pointer-events-none select-none whitespace-nowrap" style={{ textShadow: '0 0 4px black' }}>
+              🔒 Pole #{f.id}
+            </div>
+          </Html>
         </group>
       ))}
     </>

@@ -1,12 +1,12 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import { useGameStore } from '@/games/karols-farm/store/gameStore';
 import * as THREE from 'three';
 
 export function GameCamera() {
-  const { camera } = useThree();
+  const { camera, gl } = useThree();
   const orbitAngle = useRef(0);
   const orbitTilt = useRef(0.6);
   const distance = useRef(14);
@@ -14,7 +14,7 @@ export function GameCamera() {
   const lastMouse = useRef({ x: 0, y: 0 });
 
   // Handle mouse drag for camera rotation
-  useThree(({ gl }) => {
+  useEffect(() => {
     const canvas = gl.domElement;
 
     const onPointerDown = (e: PointerEvent) => {
@@ -47,7 +47,7 @@ export function GameCamera() {
       canvas.removeEventListener('pointerup', onPointerUp);
       canvas.removeEventListener('wheel', onWheel);
     };
-  });
+  }, [gl]);
 
   useFrame(() => {
     const state = useGameStore.getState();
